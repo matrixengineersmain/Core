@@ -29,7 +29,19 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:600 18px var(--display)}
 .logo{width:38px;height:38px;flex:none}
 .logo img{display:block;width:100%;height:100%}
-nav{display:flex;gap:2px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+nav{display:flex;align-items:center;gap:6px;flex:1;min-width:0}
+.navl{display:flex;gap:2px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.navl::-webkit-scrollbar{display:none}
+.navr{display:flex;gap:2px;flex:none;align-items:center}
+.dd{position:relative}
+.ddbtn{font:500 14px var(--body);color:var(--muted);background:none;border:0;padding:8px 11px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;-webkit-appearance:none;appearance:none;transition:color .2s,background .2s}
+.ddbtn:hover,.ddbtn[aria-expanded="true"]{color:var(--ink)}
+.ddbtn svg{transition:transform .2s}.ddbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.ddbtn[aria-current="page"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
+.ddmenu{position:fixed;z-index:40;min-width:180px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 12px 28px rgba(159,18,57,.14)}
+.ddmenu a{display:block;padding:10px 12px;border-radius:6px;font-size:15px}
+.ddmenu a:hover{background:var(--grid)}
+@media(max-width:760px){nav{flex:1 1 100%;flex-wrap:wrap;gap:0}.navr{order:1;flex:1 1 100%;justify-content:flex-start}.navl{order:2;flex:1 1 100%}.navr a,.ddbtn{padding:8px 9px;font-size:13.5px}}
 nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font:500 14px var(--body);padding:8px 11px;border-radius:6px}
 nav a:hover{color:var(--ink)}
 nav a[aria-current="page"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
@@ -64,6 +76,7 @@ details p{margin:10px 0 0;color:var(--muted)}
 form{display:grid;gap:16px;max-width:560px;margin-top:28px}
 label{display:grid;gap:6px;font:500 14px var(--body)}
 input,select,textarea{font:16px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 12px;width:100%}
+.ar{display:inline-block;text-decoration:none;margin-left:.3em}
 .note{font-size:13px;color:var(--muted)}
 #msg,#askmsg{padding:14px 16px;border:1px solid var(--accent);border-radius:8px;max-width:560px;margin-top:16px}
 footer{border-top:1px solid var(--line);padding-block:32px 40px;color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;margin:0 auto;max-width:1080px}
@@ -114,7 +127,7 @@ html{-webkit-text-size-adjust:100%}
 body{overflow-x:hidden;overflow-x:clip;min-height:100vh;min-height:100dvh}
 body::before{top:0;left:0;right:0}
 .deco{top:0;left:0;right:0;bottom:0}
-nav::-webkit-scrollbar{display:none}
+
 summary{display:block;position:relative;padding-right:32px;-webkit-tap-highlight-color:transparent}
 summary::-webkit-details-marker{display:none}
 summary::after{position:absolute;right:0;top:0}
@@ -345,7 +358,11 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
    Matrix Engineers
   </a>
   <nav aria-label="Main">
-   <a href="#home">Home</a><a href="#our-story">Our Story</a><a href="#our-team">Our Team</a><a href="#pathways">Pathways</a><a href="#build-lab">Build Lab</a><a href="#horizon">On the Horizon</a><a href="#mentors">Mentors</a><a href="#toolkit">Toolkit</a><a href="#field-notes">Field Notes</a><a href="#partners">Partners</a><a href="#faq">FAQ</a><a href="#contact-us">Contact Us</a><a href="#join">Join</a>
+   <div class="navl"><a href="#home">Home</a><a href="#pathways">Pathways</a><a href="#build-lab">Build Lab</a><a href="#horizon">On the Horizon</a><a href="#toolkit">Toolkit</a><a href="#field-notes">Field Notes</a></div>
+   <div class="navr"><a href="#join">Join</a><a href="#contact-us">Contact Us</a><a href="#faq">FAQ</a>
+    <div class="dd"><button type="button" class="ddbtn" id="ddbtn" aria-haspopup="true" aria-expanded="false" aria-controls="ddmenu">About Us <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+     <div class="ddmenu" id="ddmenu" hidden><a href="#our-team">Our Team</a><a href="#partners">Partners</a><a href="#mentors">Mentors</a><a href="#our-story">Our Story</a></div></div>
+   </div>
   </nav>
  </div>
 </header>
@@ -581,7 +598,7 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
   <div class="card"><p class="mono">Hands-on workshop</p><h3>Explore flight &amp; design</h3><p>Investigate airfoil shapes, aerodynamic forces, and the thinking behind aircraft design.</p><span class="status">In planning · Date to be announced</span></div>
   <div class="card"><p class="mono">Build session</p><h3>Work across fields</h3><p>Connect structures, electronics, software, and environmental systems in a collaborative design study.</p><span class="status">In planning · Date to be announced</span></div>
  </div>
- <p style="margin-top:24px"><a href="#join">Get activity updates →</a></p>
+ <p style="margin-top:24px"><a href="#join">Get activity updates<span class="ar">→</span></a></p>
 </section>
 
 <section class="view wrap" id="mentors">
@@ -636,7 +653,7 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
   <p class="note">We use your email only to reply to your question.</p>
  </form>
  <p id="askmsg" hidden></p>
-  <p style="margin-top:24px">Want to be part of it? <a href="#join">Join the community →</a></p>
+  <p style="margin-top:24px">Want to be part of it? <a href="#join">Join the community<span class="ar">→</span></a></p>
 </section>
 
 <section class="view wrap" id="join">
@@ -653,7 +670,7 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
   <p class="note">By submitting, you agree to be contacted about club activities. Your details are used for club communication.</p>
  </form>
  <p id="msg" hidden></p>
- <div class="card" style="max-width:560px;margin-top:28px"><p class="mono">Google Classroom</p><h3>Join our class</h3><p>Open Google Classroom, select the + button, choose Join class, and enter this code.</p><p style="margin-top:14px"><code id="gc" style="font:600 22px var(--mono);letter-spacing:.12em;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 12px">ewnyrn3t</code> <button class="copy" id="cp2" type="button" aria-live="polite">Copy</button></p><p style="margin-top:12px"><a href="https://classroom.google.com" target="_blank" rel="noopener">Open Google Classroom &rarr;</a></p></div>
+ <div class="card" style="max-width:560px;margin-top:28px"><p class="mono">Google Classroom</p><h3>Join our class</h3><p>Open Google Classroom, select the + button, choose Join class, and enter this code.</p><p style="margin-top:14px"><code id="gc" style="font:600 22px var(--mono);letter-spacing:.12em;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 12px">ewnyrn3t</code> <button class="copy" id="cp2" type="button" aria-live="polite">Copy</button></p><p style="margin-top:12px"><a href="https://classroom.google.com" target="_blank" rel="noopener">Open Google Classroom<span class="ar">&rarr;</span></a></p></div>
  <p class="note" style="margin-top:20px">Contact: <span id="mail">matrixengineersinitiative@gmail.com</span> <button class="copy" id="cp" type="button">Copy</button></p>
 </section>
 </main>
@@ -672,9 +689,20 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
     if(!views.some(function(v){return v.id===id}))id='home';
     views.forEach(function(v){v.classList.toggle('on',v.id===id)});
     links.forEach(function(a){a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+    var db=document.getElementById('ddbtn');if(db)['our-team','partners','mentors','our-story'].indexOf(id)>-1?db.setAttribute('aria-current','page'):db.removeAttribute('aria-current');
     window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',show);show();
+  (function(){
+    var b=document.getElementById('ddbtn'),m=document.getElementById('ddmenu');
+    function close(){m.hidden=true;b.setAttribute('aria-expanded','false')}
+    function open(){var r=b.getBoundingClientRect();m.hidden=false;var w=m.offsetWidth;m.style.top=(r.bottom+6)+'px';m.style.left=Math.max(8,Math.min(r.right-w,innerWidth-w-8))+'px';b.setAttribute('aria-expanded','true')}
+    b.addEventListener('click',function(e){e.stopPropagation();m.hidden?open():close()});
+    m.addEventListener('click',function(e){if(e.target.closest('a'))close()});
+    document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))close()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){close();b.focus()}});
+    window.addEventListener('resize',close);window.addEventListener('hashchange',close);
+  })();
   var FORM_URL='https://script.google.com/macros/s/AKfycbznExzL5BfQkZGKMdQETkuZx5360ugAZJdnpxYu4InQhGo_PWokxdNKOkEFO6BTzBne7w/exec'; /* paste your Google Apps Script web app URL between the quotes */
   document.getElementById('joinform').addEventListener('submit',function(ev){
     ev.preventDefault();
