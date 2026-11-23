@@ -663,8 +663,9 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
  <form id="joinform">
   <label for="n">Your name<input id="n" required autocomplete="name"></label>
   <label for="e">Email address<input id="e" type="email" required autocomplete="email"></label>
+  <label for="g">Your grade<select id="g" required><option value="" selected disabled>Choose your grade</option><option>6th grade</option><option>7th grade</option><option>8th grade</option><option>9th grade</option><option>10th grade</option><option>11th grade</option><option>12th grade</option><option>Other</option></select></label>
   <label for="i">What sparks your curiosity?
-   <select id="i"><option>Choose an interest</option><option>Aerospace engineering</option><option>Mechanical engineering</option><option>Civil engineering</option><option>Electrical engineering</option><option>Software engineering</option><option>Environmental engineering</option><option>A little bit of everything</option></select></label>
+   <select id="i" required><option value="" selected disabled>Choose an interest</option><option>Aerospace engineering</option><option>Mechanical engineering</option><option>Civil engineering</option><option>Electrical engineering</option><option>Software engineering</option><option>Environmental engineering</option><option>A little bit of everything</option></select></label>
   <label for="m">Anything you'd like to share? (optional)<textarea id="m" rows="3"></textarea></label>
   <button class="btn p" type="submit">Count me in</button>
   <p class="note">By submitting, you agree to be contacted about club activities. Your details are used for club communication.</p>
@@ -710,7 +711,7 @@ h1 span{background:none;-webkit-background-clip:border-box;background-clip:borde
     var name=document.getElementById('n').value;
     m.hidden=false;
     if(!FORM_URL){m.textContent='Thanks, '+name+'. This form is not connected yet, so nothing was sent. Please email matrixengineersinitiative@gmail.com to join.';return}
-    var body=new URLSearchParams({name:name,email:document.getElementById('e').value,interest:document.getElementById('i').value,message:document.getElementById('m').value});
+    var body=new URLSearchParams({name:name,email:document.getElementById('e').value,interest:document.getElementById('i').value,grade:document.getElementById('g').value,message:document.getElementById('m').value});
     btn.disabled=true;m.textContent='Sending...';
     fetch(FORM_URL,{method:'POST',mode:'no-cors',body:body}).then(function(){
       m.textContent='Thanks, '+name+'. You are on the list, and we will be in touch about club activities.';f.reset();btn.disabled=false;if(window.flyRocket)window.flyRocket(null,innerWidth*.5);
